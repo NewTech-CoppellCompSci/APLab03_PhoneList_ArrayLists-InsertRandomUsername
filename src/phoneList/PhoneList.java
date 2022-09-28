@@ -1,6 +1,8 @@
 package phoneList;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+
 
 /*
  * Phone List
@@ -25,15 +27,18 @@ import java.util.Scanner;
 
 
 public class PhoneList {
-
+	
+	private ArrayList<Contact> internalList;
 	/*
 	 * Instance Variables
+	 * 
 	 */
 	
 	
 	
 	//Constructor
 	public PhoneList() {
+		internalList = new ArrayList<Contact>();
 		//initialize instance variables
 	}
 	
@@ -50,7 +55,20 @@ public class PhoneList {
 	 *        it's been added
 	 */
 	public void addContact() {
-		
+		Scanner scanny = new Scanner(System.in);
+		System.out.println("What is the contact's name?!");
+		String name = scanny.next();
+		System.out.println("What is the contact's phone number");
+		String number = scanny.next();
+		System.out.println("The contact has been added to your list");
+		int i = 0;
+		while(i<internalList.size() && internalList.get(i).getName() != name) {
+			i++;
+		}	if(i<internalList.size()) {
+			internalList.add(i, new Contact(name, number));
+			} else {
+			internalList.add(new Contact(name, number));
+		}
 		
 	}
 	
@@ -71,8 +89,29 @@ public class PhoneList {
 	 *        
 	 */
 	public void removeContact() {
-		
-		
+		Scanner scanny = new Scanner(System.in);
+		System.out.println("Which contact do you wanna remove?!");
+		String name = scanny.next();
+		int i = 0;
+		boolean right = false;
+		int ind = 0;
+		while(i < internalList.size()) {
+			
+			System.out.println(internalList.get(i).getName());
+			System.out.println(name);
+			if (internalList.get(i).getName().equals(name)) {
+				right = true;
+				ind = i;
+			}
+			i++;
+		}
+		System.out.println(right);
+		if(right) {
+			internalList.remove(ind);
+			System.out.println(name + " has now been removed your contact list");
+		} else {
+			System.out.println(name + " is invalid!!! (+_+)");
+		}
 	}
 	
 	
@@ -87,8 +126,9 @@ public class PhoneList {
 	 *          -----------------
 	 *          #################
 	 */
-	public void printList() {
-		
+	public void printList() 
+	{
+		System.out.println(internalList);
 	}
 
 	
